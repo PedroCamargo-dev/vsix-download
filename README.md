@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# VSIX Downloader
 
-## Getting Started
+Aplicação web para baixar arquivos `.vsix` (Visual Studio Code Extensions) utilizando Next.js. Suporte para execução em ambiente de desenvolvimento e em container Docker.
 
-First, run the development server:
+## Requisitos
+
+- Node.js e npm (para ambiente de desenvolvimento local)
+- Docker e Docker Compose (para execução em container)
+
+## Configuração e Execução
+
+### Variáveis de Ambiente
+
+Crie um arquivo `.env.local` na raiz do projeto e defina a variável `DOWNLOAD_PATH` para o caminho onde os arquivos `.vsix` serão baixados:
+
+```dotenv
+DOWNLOAD_PATH=public/downloads/vsix
+```
+
+### Executando em Ambiente de Desenvolvimento
+
+Clone o repositório e instale as dependências:
+
+```bash
+git clone <URL_DO_REPOSITORIO>
+cd nome-do-repositorio
+npm install
+```
+
+Inicie a aplicação em modo de desenvolvimento:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse em http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Executando com Docker Compose
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Na configuração do docker-compose.yml, o volume `./vsix:/app/public/downloads/vsix` é utilizado para mapear o diretório local `./vsix` (do host) para o diretório `/app/public/downloads/vsix` dentro do container.
 
-## Learn More
+Essa configuração permite que os arquivos `.vsix` baixados pela aplicação sejam armazenados no diretório vsix no host e estejam acessíveis na aplicação.
 
-To learn more about Next.js, take a look at the following resources:
+#### Exemplo de Configuração
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+No `docker-compose.yml`, o volume é configurado da seguinte forma:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```yaml
+volumes:
+  - ./vsix:/app/public/downloads/vsix
+```
 
-## Deploy on Vercel
+`./vsix` é o caminho local (do host) onde os arquivos `.vsix` serão armazenados. Esse diretório deve existir na raiz do projeto. Se não existir, crie-o com o comando:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+mkdir vsix
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- A pasta `./vsix` no host, configurada no `docker-compose.yml`, pode ser qualquer diretório no sistema local. No entanto, para que a aplicação consiga salvar os arquivos `.vsix` sem erros, o diretório escolhido precisa ter permissões adequadas.
+
+Para garantir que o diretório escolhido tem as permissões corretas, use o comando a seguir para definir permissões:
+
+```bash
+chmod -R 777 vsix
+```
+
+Após todas as configurações acima basta executar o comando:
+
+```bash
+docker compose up --build
+```
