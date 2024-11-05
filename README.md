@@ -1,70 +1,81 @@
-# VSIX Downloader
+# 🚀 VSIX Downloader
 
-Aplicação web para baixar arquivos `.vsix` (Visual Studio Code Extensions) utilizando Next.js. Suporte para execução em ambiente de desenvolvimento e em container Docker.
+Este projeto foi criado para resolver um problema comum encontrado no **code-server**: a dificuldade em instalar extensões `.vsix` de forma rápida e simples. Com o **VSIX Downloader**, você pode gerenciar e baixar extensões diretamente, facilitando o processo de instalação em ambientes como o code-server, onde o gerenciamento de extensões pode ser mais desafiador.
 
-## Requisitos
+## 📋 Pré-requisitos
 
-- Node.js e npm (para ambiente de desenvolvimento local)
-- Docker e Docker Compose (para execução em container)
+- **Node.js** e **npm** para execução em ambiente de desenvolvimento local.
+- **Docker** e **Docker Compose** para execução em container Docker.
 
-## Configuração e Execução
+## ⚙️ Configuração e Execução
 
-### Variáveis de Ambiente
+### 🌐 Variáveis de Ambiente
 
-Crie um arquivo `.env.local` na raiz do projeto e defina a variável `DOWNLOAD_PATH` para o caminho onde os arquivos `.vsix` serão baixados:
+Para definir o diretório onde os arquivos `.vsix` serão armazenados, crie um arquivo `.env.local` na raiz do projeto e adicione a variável `DOWNLOAD_PATH`:
 
 ```dotenv
 DOWNLOAD_PATH=public/downloads/vsix
 ```
 
-### Executando em Ambiente de Desenvolvimento
+### 💻 Executando em Ambiente de Desenvolvimento Local
 
-Clone o repositório e instale as dependências:
+1. Clone o repositório e instale as dependências:
 
-```bash
-git clone <URL_DO_REPOSITORIO>
-cd nome-do-repositorio
-npm install
-```
+   ```bash
+   git clone https://github.com/PedroCamargo-dev/vsix-download.git
+   cd vsix-download
+   npm install
+   ```
 
-Inicie a aplicação em modo de desenvolvimento:
+2. Inicie a aplicação em modo de desenvolvimento:
 
-```bash
-npm run dev
-```
+   ```bash
+   npm run dev
+   ```
 
-Acesse em http://localhost:3000.
+3. Acesse a aplicação em [http://localhost:3000](http://localhost:3000).
 
-### Executando com Docker Compose
+### 🐳 Executando com Docker Compose
 
-Na configuração do docker-compose.yml, o volume `./vsix:/app/public/downloads/vsix` é utilizado para mapear o diretório local `./vsix` (do host) para o diretório `/app/public/downloads/vsix` dentro do container.
+Para rodar a aplicação em um container Docker, configure o `docker-compose.yml` para definir as variáveis de ambiente e mapear o diretório de downloads para o sistema de arquivos local.
 
-Essa configuração permite que os arquivos `.vsix` baixados pela aplicação sejam armazenados no diretório vsix no host e estejam acessíveis na aplicação.
+#### 📝 Configuração no `docker-compose.yml`
 
-#### Exemplo de Configuração
-
-No `docker-compose.yml`, o volume é configurado da seguinte forma:
+No arquivo `docker-compose.yml`, configure as variáveis de ambiente e o volume conforme abaixo:
 
 ```yaml
-volumes:
-  - ./vsix:/app/public/downloads/vsix
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+    environment:
+      DOWNLOAD_PATH: /app/public/downloads/vsix
+    volumes:
+      - ./vsix:/app/public/downloads/vsix
 ```
 
-`./vsix` é o caminho local (do host) onde os arquivos `.vsix` serão armazenados. Esse diretório deve existir na raiz do projeto. Se não existir, crie-o com o comando:
+- **`environment`**: Configura a variável `DOWNLOAD_PATH` para o diretório de downloads no container (`/app/public/downloads/vsix`).
+- **`volumes`**: Mapeia o diretório local `./vsix` para o diretório `/app/public/downloads/vsix` no container, permitindo que os arquivos `.vsix` fiquem acessíveis no host.
+
+#### 📁 Preparação do Diretório de Download
+
+Verifique se o diretório `vsix` existe na raiz do projeto. Se não existir, crie-o:
 
 ```bash
 mkdir vsix
 ```
 
-- A pasta `./vsix` no host, configurada no `docker-compose.yml`, pode ser qualquer diretório no sistema local. No entanto, para que a aplicação consiga salvar os arquivos `.vsix` sem erros, o diretório escolhido precisa ter permissões adequadas.
-
-Para garantir que o diretório escolhido tem as permissões corretas, use o comando a seguir para definir permissões:
+Ajuste as permissões para permitir gravação:
 
 ```bash
 chmod -R 777 vsix
 ```
 
-Após todas as configurações acima basta executar o comando:
+#### ▶️ Executando com Docker Compose
+
+Após configurar o arquivo `docker-compose.yml` e criar o diretório de download, inicie a aplicação com Docker Compose:
 
 ```bash
 docker compose up --build
