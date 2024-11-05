@@ -1,6 +1,6 @@
-# 🚀 VSIX Downloader
+# 🚀 VSIX Download
 
-Este projeto foi criado para resolver um problema comum encontrado no **code-server**: a dificuldade em instalar extensões `.vsix` de forma rápida e simples. Com o **VSIX Downloader**, você pode gerenciar e baixar extensões diretamente, facilitando o processo de instalação em ambientes como o code-server, onde o gerenciamento de extensões pode ser mais desafiador.
+Este projeto foi criado para resolver um problema comum encontrado no **code-server**: a dificuldade em instalar extensões `.vsix` de forma rápida e simples. Com o **VSIX Download**, você baixar extensões diretamente, facilitando o processo de instalação em ambientes como o code-server, onde o gerenciamento de extensões pode ser mais desafiador.
 
 ## 📋 Pré-requisitos
 
