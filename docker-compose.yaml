@@ -1,0 +1,11 @@
+services:
+  front:
+    image: front
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DOWNLOAD_PATH=
+    volumes:
+      - ./vsix:/app/${DOWNLOAD_PATH} # Monta o volume /vsix no container para baixar os arquivos .vsix
