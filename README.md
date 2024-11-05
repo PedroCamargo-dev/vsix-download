@@ -1,6 +1,8 @@
 # 🚀 VSIX Download
 
-Este projeto foi criado para resolver um problema comum encontrado no **code-server**: a dificuldade em instalar extensões `.vsix` de forma rápida e simples. Com o **VSIX Download**, você baixar extensões diretamente, facilitando o processo de instalação em ambientes como o code-server, onde o gerenciamento de extensões pode ser mais desafiador.
+Este projeto foi criado para resolver um problema comum encontrado no **code-server** ou em ambientes onde não é possível acessar o marketplace de extensões de IDEs com a interface do Visual Studio Code: a dificuldade em obter extensões `.vsix` de forma rápida e prática. Com o **VSIX Download**, você pode baixar extensões diretamente, facilitando o processo de instalação em ambientes como o code-server, onde o acesso ao marketplace pode ser limitado e o gerenciamento de extensões é mais desafiador.
+
+**Nota:** No momento, o VSIX Download permite apenas o download das extensões. O gerenciamento dos arquivos ainda não está implementado.
 
 ## 📋 Pré-requisitos
 
