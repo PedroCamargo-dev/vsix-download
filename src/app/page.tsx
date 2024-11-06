@@ -1,12 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import {
   DownloadButton,
   SearchInput,
   SuggestionsList,
   VersionsDropdown,
-} from "./components";
-import { useExtension } from "./hooks/useExtension";
+} from "../components";
+import { useExtension } from "../hooks/useExtension";
 
 export default function Home() {
   const {
@@ -26,6 +27,12 @@ export default function Home() {
 
   return (
     <div className="flex justify-center h-screen w-full py-10 items-center px-10 lg:px-2">
+      <Link
+        href="/downloads"
+        className="fixed top-6 right-6 text-blue-500 hover:text-blue-700 font-medium underline transition-all duration-300"
+      >
+        Downloads
+      </Link>
       <div className="w-full md:w-3/4 lg:w-2/5 xl:w-2/6 h-auto border flex justify-center p-4 rounded-xl flex-col items-center gap-6 border-blue-200 drop-shadow-sm">
         <div className="flex flex-col text-center">
           <h1 className="text-3xl">VSIX Download</h1>

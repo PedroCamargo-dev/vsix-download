@@ -6,6 +6,6 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - DOWNLOAD_PATH=
+      - DOWNLOAD_PATH=public/downloads/vsix
     volumes:
-      - ./vsix:/app/${DOWNLOAD_PATH} # Monta o volume /vsix no container para baixar os arquivos .vsix
+      - /home/pedrocamargo/vsix:/app/${DOWNLOAD_PATH} # Monta o volume /vsix no container para baixar os arquivos .vsix

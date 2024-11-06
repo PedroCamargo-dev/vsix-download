@@ -1,4 +1,4 @@
-import { IExtensionQueryResponse, ISuggestion } from "@/app/interfaces/api";
+import { IExtensionQueryResponse, ISuggestion } from "@/interfaces/api";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request): Promise<NextResponse> {
